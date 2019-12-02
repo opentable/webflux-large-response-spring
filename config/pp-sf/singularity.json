@@ -1,0 +1,8 @@
+{
+  "requestId": "pp-webflux-large-response-spring",
+  "resources": {
+    "cpus": 0.1,
+    "memoryMb": 512,
+    "numPorts": 3
+  }
+}

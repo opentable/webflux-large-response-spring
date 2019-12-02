@@ -4,6 +4,8 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 
 import java.time.Duration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -23,14 +25,16 @@ import org.springframework.web.server.ResponseStatusException;
 @Configuration
 public class Application {
 
+    private static final Logger LOG = LoggerFactory.getLogger(Application.class);
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
     @Bean
     public RouterFunction<ServerResponse> getRouter(final HandlerFunction<ServerResponse> getHandler) {
-        return route().GET("/", RequestPredicates.accept(MediaType.APPLICATION_JSON)
-                , getHandler).build();
+        return route().GET("/", RequestPredicates.accept(MediaType.APPLICATION_JSON), getHandler)
+                .GET("/health", (serverRequest) -> ServerResponse.ok().build()).build();
     }
 
     @Bean
@@ -42,7 +46,10 @@ public class Application {
             final String path = serverRequest.queryParam("path")
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing ?path query string"));
 
+            LOG.info("Getting path: {}", path);
+
             return webClient.get().uri(path)
+                    .headers((headers) -> serverRequest.headers().asHttpHeaders().toSingleValueMap().forEach(headers::add))
                     .exchange()
                     .timeout(Duration.ofSeconds(30))
                     .flatMap(cr -> ServerResponse.ok().body(cr.bodyToMono(String.class), String.class));

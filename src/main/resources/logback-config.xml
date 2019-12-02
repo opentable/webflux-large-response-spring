@@ -1,0 +1,7 @@
+<included>
+    <logger name="com.repro" level="TRACE"/>
+    <logger name="org.eclipse.jetty" level="TRACE"/>
+    <logger name="org.springframework" level="TRACE" />
+    <logger name="io.netty" level="TRACE" />
+    <logger name="reactor.ipc.netty" level="TRACE" />
+</included>

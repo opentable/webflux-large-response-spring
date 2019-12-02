@@ -10,52 +10,47 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version>
+        <version>2.2.1.RELEASE</version>
         <relativePath/>
     </parent>
-
-    <properties>
-        <dep.spring-boot.version>${parent.version}</dep.spring-boot.version>
-        <dep.spring-boot-starter-webflux.version>${dep.spring-boot.version}</dep.spring-boot-starter-webflux.version>
-        <dep.spring-boot-test.version>${dep.spring-boot.version}</dep.spring-boot-test.version>
-
-        <dep.reactor-netty.version>0.8.9.RELEASE</dep.reactor-netty.version>
-        <dep.reactor-core.version>3.2.10.RELEASE</dep.reactor-core.version>
-        <dep.jetty-client.version>9.4.19.v20190610</dep.jetty-client.version>
-    </properties>
 
     <dependencies>
         <dependency>
             <groupId>io.projectreactor.netty</groupId>
             <artifactId>reactor-netty</artifactId>
-            <version>${dep.reactor-netty.version}</version>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
-            <version>${dep.spring-boot-starter-webflux.version}</version>
+            <exclusions>
+                <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-reactor-netty</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-core</artifactId>
-            <version>${dep.reactor-core.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test</artifactId>
-            <version>${dep.spring-boot-test.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>${dep.spring-boot.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

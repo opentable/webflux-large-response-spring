@@ -1,0 +1,11 @@
+{
+  "id": "pp-webflux-large-response-spring",
+  "instances": 1,
+  "requestType": "SERVICE",
+  "owners": [
+    "page-arch_team@opentable.pagerduty.com"
+  ],
+  "rackSensitive": false,
+  "slavePlacement": "SEPARATE",
+  "loadBalanced": false
+}
