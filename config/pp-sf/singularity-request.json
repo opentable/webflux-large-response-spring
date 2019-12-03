@@ -3,7 +3,7 @@
   "instances": 1,
   "requestType": "SERVICE",
   "owners": [
-    "page-arch_team@opentable.pagerduty.com"
+    "sjohnson@opentable.com"
   ],
   "rackSensitive": false,
   "slavePlacement": "SEPARATE",

@@ -52,13 +52,14 @@
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-jetty</artifactId>-->
-<!--        </dependency>-->
+        <!-- Pull in our Jetty deps directly instead of using the starter so that we can vary the Jetty version
+         independently of the Spring / Spring Boot version -->
 
-        <!-- Pull in our Jetty deps directly so we can vary the Jetty version independently
-        of Spring / Spring Boot version -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-jetty</artifactId>-->
+        <!--        </dependency>-->
+
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-servlets</artifactId>
