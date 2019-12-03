@@ -131,7 +131,7 @@ WebFlux `WebClient` to proxy requests and responses from downstream services. We
 encounter an issue with large JSON responses returned by the API gateway being cut-off part way through.
 
 Our initial assumption was that the issue has to do with the WebClient client connector used, but this hypothesis was
-disproven in testing. *Ultimately, what matters is that the response from the server is large, even if no downstream
+disproved in testing. *Ultimately, what matters is that the response from the server is large, even if no downstream
 WebClient call is made.*
 
 The demo app contains an API `/webclient?path="foo"` which proxies a request to the URI `foo` and returns the result
