@@ -34,7 +34,7 @@ public class Application {
     @Bean
     public RouterFunction<ServerResponse> getRouter(final HandlerFunction<ServerResponse> getHandler) {
         return route()
-                .GET("/", getHandler)
+                .GET("/webclient", getHandler)
                 .GET("/just", justFunction)
                 .GET("/syncbody", syncBodyFunction)
                 .GET("/health", (serverRequest) -> ServerResponse.ok().build())
