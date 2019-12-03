@@ -11,14 +11,14 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.reactive.config.EnableWebFlux;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.server.HandlerFunction;
-import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ResponseStatusException;
+
+import reactor.core.publisher.Mono;
 
 @EnableAutoConfiguration
 @EnableWebFlux
@@ -33,8 +33,12 @@ public class Application {
 
     @Bean
     public RouterFunction<ServerResponse> getRouter(final HandlerFunction<ServerResponse> getHandler) {
-        return route().GET("/", RequestPredicates.accept(MediaType.APPLICATION_JSON), getHandler)
-                .GET("/health", (serverRequest) -> ServerResponse.ok().build()).build();
+        return route()
+                .GET("/", getHandler)
+                .GET("/just", justFunction)
+                .GET("/syncbody", syncBodyFunction)
+                .GET("/health", (serverRequest) -> ServerResponse.ok().build())
+                .build();
     }
 
     @Bean
@@ -55,4 +59,20 @@ public class Application {
                     .flatMap(cr -> ServerResponse.ok().body(cr.bodyToMono(String.class), String.class));
         };
     }
+
+    private HandlerFunction<ServerResponse> justFunction = (serverRequest) -> {
+        final int size = Integer.parseInt(serverRequest.queryParam("size")
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing ?size query string")));
+
+        final String staticContent = "a".repeat(size);
+        return ServerResponse.ok().body(Mono.just(staticContent), String.class);
+    };
+
+    private HandlerFunction<ServerResponse> syncBodyFunction = (serverRequest) -> {
+        final int size = Integer.parseInt(serverRequest.queryParam("size")
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing ?size query string")));
+
+        final String staticContent = "a".repeat(size);
+        return ServerResponse.ok().syncBody(staticContent);
+    };
 }
