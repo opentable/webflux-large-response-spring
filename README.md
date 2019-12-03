@@ -176,7 +176,7 @@ We were able to reproduce the issue using this demo app in the following operati
 The number of bytes of the response that are necessary to trigger the cutoff *decreases* as you go down this list.
 
 In other words, when running in our Mesos cluster, we are able to consistently reproduce the issue when requesting
-a response of 78200 bytes or more. But when running in Heroku it requires up to 10x the number of bytes (as our Mesos cluster),
+a response of 78200 characters or more. But when running in Heroku it requires up to 10x the number of bytes (as our Mesos cluster),
 and when running locally (in local Docker or in IDE) it can require up to 100x the number of bytes to trigger the issue.
 
 Something about our Mesos cluster or our organizational network lowers the threshold significantly, but it is still possible to
@@ -185,12 +185,12 @@ trigger the issue in these other environments by making the response size suffic
 One hypothesis is that varying threshold has something to do with the network itself (maybe network latency?) over which the request
 is being made, but we have yet been unable to empirically test this.
 
-Incidentally the threshold to trigger the issue in our Mesos cluster is *always exactly* 78200 bytes. 
+Incidentally the threshold to trigger the issue in our Mesos cluster is *always exactly* 78200 characters. 
 
 
 ## What about container resource provisioning?
 
-Given that we know the exact threshold to trigger the issue in a particular operating environment (78200 bytes in Mesos),
+Given that we know the exact threshold to trigger the issue in a particular operating environment (78200 characters in Mesos),
 we were able to test whether container resource provisioning has any impact on triggering the issue.
 
 
@@ -198,9 +198,9 @@ we were able to test whether container resource provisioning has any impact on t
 
 _Does the issue occur?_
 
-**Tested with a provisioned container with 512m native memory and 0.1 cpus, and max heap of 256m: Yes, after 78200 bytes**
+**Tested with a provisioned container with 512m native memory and 0.1 cpus, and max heap of 256m: Yes, after 78200 characters**
 
-**Tested with a provisioned container with 2048m native memory and 2.0 cpus, and max heap of 1024m: Yes, after 72800 bytes**
+**Tested with a provisioned container with 2048m native memory and 2.0 cpus, and max heap of 1024m: Yes, after 78200 characters**
 
 Conclusion: Container resource sizing does not appear to have any impact on whether or not the issue is triggered or any
 affect on what is the triggering threshold.
