@@ -55,10 +55,10 @@ curl: (18) transfer closed with 7197652 bytes remaining to read
 - Jetty 9.4.15.v20190215 and above (tested up to Jetty 9.4.24.v20191120)
 - Java 8 and above (tested up to Java 11)
 
-Note that the issue is only related to the Spring/Boot version and not the Jetty or Java versions.
+Note that the issue is only impacted by the Spring/Boot version and not the Jetty or Java versions.
 
 We tested various combinations of Spring, Spring Boot, Jetty, and Java versions and determined that
-the issue is introduced only with an update to Spring 5.1.7/Spring Boot 2.1.5, regardless of which Jetty or Java
+the issue is introduced only with an update to Spring 5.1.6/Spring Boot 2.1.5, regardless of which Jetty or Java
 version is used.
 
 The issue is *not* exhibited on Spring 5.1.5/Spring Boot 2.1.4, regardless of which Jetty or Java version is used.
