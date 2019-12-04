@@ -1,6 +1,8 @@
 A demonstration of the Spring WebFlux & Jetty large response cut off issue affecting Spring 5.1.6 and above
 ===========================================================================================================
 
+**UPDATE: This issue is fixed in Spring 5.1.12 and 5.2.2.**
+
 # I. Description
 
 Given a Spring WebFlux application running on Jetty server using Spring 5.1.6 / Spring Boot 2.1.5 and above:
