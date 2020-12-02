@@ -16,7 +16,7 @@
 
     <properties>
         <project.build.targetJdk>11</project.build.targetJdk>
-        <dep.jetty.version>9.4.22.v20191022</dep.jetty.version>
+        <dep.jetty.version>9.4.35.v20201120</dep.jetty.version>
     </properties>
 
     <dependencies>
